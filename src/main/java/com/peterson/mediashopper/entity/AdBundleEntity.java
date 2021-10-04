@@ -18,7 +18,7 @@ public class AdBundleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "BUNDLE_ID")
-    private Integer adId;
+    private Integer bundleId;
 
     @Column(name = "AD_IDS")
     private String adIds;
