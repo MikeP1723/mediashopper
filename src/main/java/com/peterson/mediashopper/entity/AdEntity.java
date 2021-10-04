@@ -20,11 +20,11 @@ public class AdEntity {
     @Column(name = "AD_ID")
     private Integer adId;
 
-    @Column(name = "DAY")
-    private String day;
-
     @Column(name = "TIME_SLOT")
     private String timeSlot;
+
+    @Column(name = "DAY")
+    private String day;
 
     @Column(name = "COST")
     private BigDecimal cost;

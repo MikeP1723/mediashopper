@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,5 +80,46 @@ public class AdRepositoryTest {
                 hasProperty("adId", is(2)),
                 hasProperty("adId", is(5))
         ));
+    }
+
+    @Test
+    void shouldReturnAdsForAGivenDay() {
+        // Given: a day
+        final String adDay = "THURSDAY";
+
+        // When: the repository method is called
+        final List<AdEntity> ads = adRepository.findAdEntitiesByDay(adDay);
+
+        // Then: the applicable ad slots will be returned
+        assertFalse(ads.isEmpty());
+        assertEquals(2, ads.size());
+
+    }
+
+    @Test
+    void shouldReturnAdsForAGivenDayAndTier() {
+        // Given: a day and a tier
+        final String adDay = "THURSDAY";
+        final String adTier = "PRIME";
+
+        // When: the repository method is called
+        final List<AdEntity> adEntities = adRepository.findAdEntitiesByDayAndTier(adDay, adTier);
+
+        // Then: the applicable ad slots will be returned
+        assertFalse(adEntities.isEmpty());
+        assertEquals(1, adEntities.size());
+    }
+
+    @Test
+    void shouldReturnAllAdSlotsForAListOfAdIds() {
+        // Given: a list of ad ids
+        final Integer[] adIds = {1,2,5};
+
+        // When: the repository method is called
+        final List<AdEntity> adEntities = adRepository.findAdEntitiesByAdIdIn(Arrays.asList(adIds));
+
+        // Then: the applicable ad slots will be returned
+        assertFalse(adEntities.isEmpty());
+        assertEquals(3, adEntities.size());
     }
 }
