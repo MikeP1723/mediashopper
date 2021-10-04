@@ -6,6 +6,7 @@ import com.peterson.mediashopper.entity.AdBundleEntity;
 import com.peterson.mediashopper.entity.AdEntity;
 import com.peterson.mediashopper.repository.AdBundleRepository;
 import com.peterson.mediashopper.repository.AdRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
+@Slf4j
 public class MediaShopperService {
 
     private final transient AdRepository adRepository;
@@ -34,12 +36,16 @@ public class MediaShopperService {
         List<AdEntity> adEntities;
 
         if (null != day && null != tier) {
+            log.info("Finding AD slots for day {} and tier {}", day, tier);
             adEntities = adRepository.findAdEntitiesByDayAndTier(day, tier);
         } else if (null == day && null != tier) {
+            log.info("Finding AD slots for tier {}", tier);
             adEntities = adRepository.findAdEntitiesByTier(tier);
         } else if (null != day) {
+            log.info("Finding Ad slots for day {}", day);
             adEntities = adRepository.findAdEntitiesByDay(day);
         } else {
+            log.info("Finding all Ad slots");
             adEntities = adRepository.findAll();
         }
 
